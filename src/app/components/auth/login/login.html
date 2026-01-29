@@ -1,0 +1,43 @@
+<section>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-card class="login-card">
+      <mat-card-title class="login-title">Login</mat-card-title>
+
+      <div class="login-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput id="email" type="email" formControlName="email">
+        </mat-form-field>
+
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+          <span class="error">email is not valid</span>
+        }
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput id="password" type="password" formControlName="password">
+        </mat-form-field>
+
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+          <span class="error">password must be at least 6 characters</span>
+        }
+
+        <div class="login-actions">
+          <button mat-flat-button color="primary" class="primary" type="submit" [disabled]="loginForm.invalid || isLoading()">
+            @if (isLoading()) {
+              <span>Connecting...</span>
+            } @else {
+              <span>Login</span>
+            }
+          </button>
+
+          <a class="small-link" routerLink="/register">Create account</a>
+        </div>
+
+        @if (errorMessage()) {
+          <p class="login-note">{{ errorMessage() }}</p>
+        }
+      </div>
+    </mat-card>
+  </form>
+</section>

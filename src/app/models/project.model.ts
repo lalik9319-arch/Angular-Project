@@ -6,3 +6,8 @@ export interface Project {
   status: string;
   created_at: string;
 }
+export interface NewProject {
+  teamId: number;   
+  name: string;
+  description: string;
+}

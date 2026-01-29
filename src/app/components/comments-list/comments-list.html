@@ -1,0 +1,56 @@
+<div class="comments-section">
+  <h3>Comments</h3>
+
+  <div class="comment-input-box">
+    <mat-form-field appearance="outline" class="comment-field">
+      <mat-label>Write a comment...</mat-label>
+      <textarea matInput 
+        [(ngModel)]="newCommentContent" 
+        rows="4">
+      </textarea>
+    </mat-form-field>
+    <button mat-flat-button color="primary" 
+      (click)="addComment()" 
+      [disabled]="!newCommentContent().trim() || isAddingComment()"
+      class="send-btn">
+      <mat-icon>send</mat-icon>
+      {{ isAddingComment() ? 'Sending...' : 'Send' }}
+    </button>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  }
+
+  <div class="comments-list">
+    @if (comments().length === 0) {
+      <div class="empty-comments">
+        <mat-icon>forum</mat-icon>
+        <p>There are no comments yet for this task.</p>
+      </div>
+    } @else {
+      <mat-list>
+        @for (comment of comments(); track comment.id; let last = $last) {
+          <mat-list-item>
+            <div class="comment-item">
+              <div class="comment-header">
+                <div class="author-info">
+                  <mat-icon class="author-icon">person</mat-icon>
+                  <strong>{{ comment.author_name }}</strong>
+                </div>
+                <span class="comment-date">{{ comment.created_at | date:'MMM dd, yyyy HH:mm' }}</span>
+              </div>
+              <p class="comment-body">{{ comment.body }}</p>
+            </div>
+          </mat-list-item>
+          @if (!last) {
+            <mat-divider></mat-divider>
+          }
+        }
+      </mat-list>
+    }
+  </div>
+</div>

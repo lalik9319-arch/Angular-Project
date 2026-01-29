@@ -2,7 +2,11 @@ export interface Comment {
   id: number;
   task_id: number;
   user_id: number;
-  author_name: string;
   body: string;
   created_at: string;
+  author_name: string;
+}
+export interface NewComment {
+  taskId: number;
+  body: string;
 }

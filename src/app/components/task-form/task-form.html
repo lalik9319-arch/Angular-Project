@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{ taskToEdit() ? 'Edit Task' : 'Create New Task' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="taskForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" [readOnly]="isLoading()" placeholder="Enter task title">
+      @if (taskForm.get('title')?.invalid && taskForm.get('title')?.touched) {
+        <mat-error>Title is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" [readOnly]="isLoading()" rows="4" placeholder="Describe the task..."></textarea>
+      @if (taskForm.get('description')?.invalid && taskForm.get('description')?.touched) {
+        <mat-error>Description is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" [disabled]="isLoading()">
+        <mat-option value="todo">Todo</mat-option>
+        <mat-option value="in_progress">In Progress</mat-option>
+        <mat-option value="done">Done</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority" [disabled]="isLoading()">
+        <mat-option value="low">Low</mat-option>
+        <mat-option value="normal">Normal</mat-option>
+        <mat-option value="high">High</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    @if(errorMessage()) {
+      <div class="error-message">
+        <mat-icon>error_outline</mat-icon>
+        <p>{{ errorMessage() }}</p>
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" [disabled]="isLoading()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="taskForm.invalid || isLoading()">
+    @if (isLoading()) {
+      Saving...
+    } @else {
+      {{ taskToEdit() ? 'Update Task' : 'Create Task' }}
+    }
+  </button>
+</mat-dialog-actions>

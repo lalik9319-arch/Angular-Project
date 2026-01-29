@@ -1,0 +1,22 @@
+<hr>
+<footer>
+    <div>
+        @if (authService.isLoggedIn()) {
+        <p>
+            connect as: <strong>{{ authService.currentUser()?.email }}</strong> |
+            <button (click)="logout()">logout</button>
+        </p>
+        } @else {
+        <p>
+            you are not logged in.
+            <a routerLink="/register">make an account </a> |
+            <a routerLink="/login">login</a>
+        </p>
+        }
+    </div>
+
+    <div>
+        <p>© 2026 All rights reserved - Task Management System</p>
+
+    </div>
+</footer>

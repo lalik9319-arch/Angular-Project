@@ -1,0 +1,100 @@
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.task-card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+}
+
+.task-card:hover {
+  box-shadow: var(--elevation-2);
+  transform: translateY(-2px);
+}
+
+mat-card-header {
+  padding: var(--space-3) var(--space-3) 0 var(--space-3);
+}
+
+mat-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+mat-card-subtitle {
+  font-size: 0.875rem;
+  color: #999;
+  margin-top: var(--space-1);
+}
+
+mat-card-content {
+  padding: var(--space-3);
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  justify-content: flex-start;
+}
+
+mat-card-actions button {
+  flex-shrink: 0;
+}
+
+::ng-deep .mat-mdc-divider {
+  margin: 0 !important;
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-5);
+  color: #999;
+  font-size: 1rem;
+}
+
+.empty-state mat-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: var(--space-3);
+  color: #ddd;
+}
+
+.error-card {
+  margin-bottom: var(--space-4);
+}
+
+.error-card mat-card-content {
+  color: var(--color-error);
+}

@@ -1,0 +1,52 @@
+<div class="teams-container">
+  @if (teamsService.isLoading()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <div class="page-header">
+    <h1>My Teams</h1>
+    <button mat-flat-button color="primary" (click)="openAddTeam()" [disabled]="teamsService.isLoading()">
+      <mat-icon>add</mat-icon>
+      new team
+    </button>
+  </div>
+
+  @if (errorMessage()) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <p>{{ errorMessage() }}</p>
+        <button mat-raised-button color="warn" (click)="ngOnInit()">try again</button>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  @if (!teamsService.isLoading()) {
+    <div class="teams-grid">
+      @for (team of teamsService.teamsList(); track team.id) {
+        <mat-card class="team-card">
+          <mat-card-header>
+            <mat-card-title>{{ team.name }}</mat-card-title>
+            <mat-card-subtitle>{{ team.members_count || 0 }} members</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-actions>
+            <a mat-button [routerLink]="['/teams', team.id, 'projects']">
+              <mat-icon>visibility</mat-icon>
+              View Details
+            </a>
+            <button mat-icon-button matTooltip="Add Member" (click)="openAddMember(team.id)">
+              <mat-icon>person_add</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      } @empty {
+        @if (!errorMessage()) {
+          <div class="empty-state">
+            <mat-icon>groups</mat-icon>
+            <p>There are no teams to display. Create your first team!</p>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

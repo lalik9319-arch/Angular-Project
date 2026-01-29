@@ -1,0 +1,11 @@
+<div>
+  <span>{{ task().status }}</span>
+  <h3>{{ task().title }}</h3>
+  <p>{{ task().description }}</p>
+  <p>Priority: {{ task().priority }}</p>
+
+  <a [routerLink]="[ 'tasks', task().id]">View Details</a>
+
+  <button (click)="onEdit()">Edit</button>
+  <button (click)="onDelete()">Delete</button>
+</div>

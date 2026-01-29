@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Add Member to Team</h2>
+<p class="subtitle">Team #{{ teamId() }}</p>
+
+<mat-dialog-content>
+  <form [formGroup]="memberForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>User ID</mat-label>
+      <input matInput type="number" formControlName="userId" [readOnly]="isLoading()" placeholder="Enter user ID">
+      @if (memberForm.get('userId')?.touched && memberForm.get('userId')?.invalid) {
+        <mat-error>User ID is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Role</mat-label>
+      <input matInput formControlName="role" [readOnly]="isLoading()" placeholder="Enter role (e.g., admin, member)">
+      @if (memberForm.get('role')?.touched && memberForm.get('role')?.invalid) {
+        <mat-error>Role is required</mat-error>
+      }
+    </mat-form-field>
+
+    @if (errorMessage()) {
+      <div class="error-message">
+        <mat-icon>error_outline</mat-icon>
+        <p>{{ errorMessage() }}</p>
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" [disabled]="isLoading()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="memberForm.invalid || isLoading()">
+    @if (isLoading()) {
+      Adding...
+    } @else {
+      Add Member
+    }
+  </button>
+</mat-dialog-actions>

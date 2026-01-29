@@ -1,0 +1,71 @@
+:host {
+  display: block;
+}
+
+::ng-deep .mat-toolbar {
+  font-family: 'Inter', 'IBM Plex Sans', sans-serif !important;
+}
+
+::ng-deep .mat-toolbar.mat-primary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+  font-family: 'IBM Plex Sans', 'Inter', sans-serif;
+  margin-right: var(--space-4);
+  display: flex;
+  align-items: center;
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin-right: var(--space-4);
+}
+
+.nav-links a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 0.8;
+}
+
+.nav-links a.active {
+  font-weight: 600;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 2px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: inherit;
+  font-size: 0.95rem;
+}
+
+.user-section button {
+  color: inherit;
+}
+
+::ng-deep .mat-mdc-button-base {
+  font-family: 'Inter', 'IBM Plex Sans', sans-serif !important;
+}

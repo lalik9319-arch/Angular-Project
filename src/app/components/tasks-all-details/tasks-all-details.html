@@ -1,0 +1,79 @@
+<div class="task-details-container">
+  <nav class="back-nav">
+    <button mat-icon-button [routerLink]="['/projects', projectId()]" matTooltip="Back to Tasks">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Back to Tasks</span>
+  </nav>
+
+  @if (isLoading()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <div class="loading-state">
+      <mat-icon>hourglass_empty</mat-icon>
+      <p>Loading task details...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <mat-icon>error_outline</mat-icon>
+        <p>{{ errorMessage() }}</p>
+        <button mat-raised-button color="warn" (click)="ngOnInit()" [disabled]="isLoading()">Try Again</button>
+      </mat-card-content>
+    </mat-card>
+  } @else if (task(); as t) {
+    <article>
+      <mat-card class="app-card task-card">
+        <mat-card-header>
+          <mat-card-title>{{ t.title }}</mat-card-title>
+          <mat-card-subtitle>
+            <div class="badge-container">
+              <mat-chip-set aria-label="Task status">
+                <mat-chip>
+                  {{ t.status }}
+                </mat-chip>
+              </mat-chip-set>
+              <mat-chip-set aria-label="Task priority">
+                <mat-chip [highlighted]="t.priority && t.priority.toLowerCase() === 'high'">
+                  {{ t.priority }}
+                </mat-chip>
+              </mat-chip-set>
+            </div>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+          <section class="about-section">
+            <h3>About the Task</h3>
+            <p>{{ t.description || 'No description provided' }}</p>
+          </section>
+
+          <mat-divider></mat-divider>
+
+          <section class="dates-section">
+            <div class="date-item">
+              <mat-icon>event</mat-icon>
+              <div>
+                <strong>Due Date</strong>
+                <p>{{ t.due_date | date:'MMM dd, yyyy' }}</p>
+              </div>
+            </div>
+
+            <div class="date-item">
+              <mat-icon>schedule</mat-icon>
+              <div>
+                <strong>Created At</strong>
+                <p>{{ t.created_at | date:'MMM dd, yyyy HH:mm' }}</p>
+              </div>
+            </div>
+          </section>
+        </mat-card-content>
+      </mat-card>
+
+      <section class="comments-section">
+        <app-comments-list [taskId]="t.id"></app-comments-list>
+      </section>
+    </article>
+  }
+</div>

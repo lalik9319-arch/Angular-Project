@@ -1,0 +1,48 @@
+:host {
+	display: block;
+	font-family: 'Inter', 'IBM Plex Sans', sans-serif;
+	color: inherit;
+}
+
+.register-card {
+	max-width: 480px;
+	margin: 28px auto;
+	padding: 20px;
+	background: rgba(255,255,255,0.02);
+	border: 1px solid rgba(0,0,0,0.06);
+	border-radius: 8px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.register-title {
+	font-size: 1.15rem;
+	font-weight: 600;
+	margin-bottom: 12px;
+	color: var(--color-on-primary, inherit);
+}
+
+.register-form .mat-form-field {
+	width: 100%;
+}
+
+.register-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	margin-top: 12px;
+}
+
+.register-actions button.primary {
+	background-color: var(--color-primary);
+	color: var(--color-on-primary);
+	border-radius: 6px;
+	padding: 8px 14px;
+}
+
+.register-note {
+	text-align: center;
+	margin-top: 12px;
+	font-size: 0.9rem;
+	color: rgba(255,255,255,0.8);
+}
+

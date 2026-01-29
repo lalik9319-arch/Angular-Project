@@ -1,0 +1,66 @@
+<div class="projects-container">
+  @if (projectsService.isLoading()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <div class="page-header">
+    <div class="header-top">
+      <button mat-icon-button routerLink="/teams" matTooltip="Back to Teams">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>{{ pageTitle() }}</h1>
+    </div>
+    @if (teamId()) {
+      <button mat-flat-button color="primary" (click)="openAddProject()" [disabled]="projectsService.isLoading()">
+        <mat-icon>add</mat-icon>
+        New Project
+      </button>
+    }
+  </div>
+
+  @if (errorMessage()) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <p>{{ errorMessage() }}</p>
+        <button mat-raised-button color="warn" (click)="loadData()">Retry</button>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  @if (!projectsService.isLoading()) {
+    <div class="projects-grid">
+      @for (project of filteredProjects(); track project.id) {
+        <mat-card class="app-card project-card">
+          <mat-card-header>
+            <mat-card-title>{{ project.name }}</mat-card-title>
+            <mat-card-subtitle>
+              <mat-chip-set aria-label="Project status">
+                <mat-chip [highlighted]="project.status === 'active'">
+                  {{ project.status }}
+                </mat-chip>
+              </mat-chip-set>
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p>{{ project.description || 'No description available' }}</p>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <a mat-flat-button color="primary" [routerLink]="['/projects', project.id]">
+              <mat-icon>visibility</mat-icon>
+              View Tasks
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      } @empty {
+        @if (!projectsService.isLoading() && !errorMessage()) {
+          <div class="empty-state">
+            <mat-icon>folder_open</mat-icon>
+            <p>No projects found.</p>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

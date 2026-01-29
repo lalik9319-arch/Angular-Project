@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <a routerLink="/" class="logo">TaskMaster</a>
+  
+  <span class="spacer"></span>
+
+  @if (authService.isLoggedIn()) {
+    <nav class="nav-links">
+      <a mat-button routerLink="/teams" routerLinkActive="active">my teams</a>
+      <a mat-button routerLink="/projects" routerLinkActive="active">my projects</a>
+    </nav>
+
+    <div class="user-section">
+      <span>{{ authService.currentUser()?.name }}</span>
+      <button mat-button (click)="logout()">logout</button>
+    </div>
+  } @else {
+    <nav class="nav-links">
+      <a mat-button routerLink="/login">login</a>
+      <a mat-button routerLink="/register">register</a>
+    </nav>
+  }
+</mat-toolbar>

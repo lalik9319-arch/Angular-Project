@@ -1,0 +1,63 @@
+<section class="tasks-container">
+  @if (tasksService.isLoading()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <div class="page-header">
+    <h1>Project Tasks</h1>
+    <button mat-flat-button color="primary" (click)="openAddModal()" [disabled]="tasksService.isLoading()">
+      <mat-icon>add</mat-icon>
+      Add New Task
+    </button>
+  </div>
+
+  @if (errorMessage()) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <p>{{ errorMessage() }}</p>
+        <button mat-raised-button color="warn" (click)="loadTasks()">Retry</button>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  @if (!tasksService.isLoading()) {
+    <div class="tasks-list">
+      @for (task of tasksService.tasksList(); track task.id) {
+        <mat-card class="task-card">
+          <mat-card-header>
+            <mat-card-title>{{ task.title }}</mat-card-title>
+            <mat-card-subtitle>{{ task.status }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-divider></mat-divider>
+
+          <mat-card-content>
+            <p>{{ task.description || 'No description provided' }}</p>
+          </mat-card-content>
+
+          <mat-divider></mat-divider>
+
+          <mat-card-actions>
+            <a mat-flat-button color="primary" [routerLink]="['/projects', id(), 'tasks', task.id]">
+              <mat-icon>visibility</mat-icon>
+              View Details
+            </a>
+            <button mat-icon-button matTooltip="Edit Task" (click)="handleEdit(task)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Delete Task" color="warn" (click)="handleDelete(task.id)" class="delete-btn">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      } @empty {
+        @if (!tasksService.isLoading() && !errorMessage()) {
+          <div class="empty-state">
+            <mat-icon>task_alt</mat-icon>
+            <p>No tasks found for this project.</p>
+          </div>
+        }
+      }
+    </div>
+  }
+</section>

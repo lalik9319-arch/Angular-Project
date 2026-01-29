@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Create New Team</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="teamForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Team Name</mat-label>
+      <input matInput formControlName="name" [readOnly]="isLoading()" placeholder="Enter team name">
+      @if (teamForm.get('name')?.touched && teamForm.get('name')?.invalid) {
+        <mat-error>Team name must be at least 3 characters.</mat-error>
+      }
+    </mat-form-field>
+
+    @if (errorMessage()) {
+      <div class="error-message">
+        <mat-icon>error_outline</mat-icon>
+        <p>{{ errorMessage() }}</p>
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" [disabled]="isLoading()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="teamForm.invalid || isLoading()">
+    @if (isLoading()) {
+      Saving...
+    } @else {
+      Create Team
+    }
+  </button>
+</mat-dialog-actions>

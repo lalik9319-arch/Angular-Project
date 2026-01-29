@@ -1,0 +1,50 @@
+<section>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <mat-card class="register-card">
+      <mat-card-title class="register-title">Register</mat-card-title>
+
+      <div class="register-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput id="name" type="text" formControlName="name">
+        </mat-form-field>
+
+        @if (registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+          <span class="error">name is required</span>
+        }
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput id="email" type="email" formControlName="email">
+        </mat-form-field>
+
+        @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+          <span class="error">email is not valid</span>
+        }
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput id="password" type="password" formControlName="password">
+        </mat-form-field>
+
+        @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+          <span class="error">password must be at least 6 characters</span>
+        }
+
+        <div class="register-actions">
+          <button mat-flat-button color="primary" class="primary" type="submit" [disabled]="registerForm.invalid || isLoading()">
+            @if (isLoading()) {
+              <span>Loading...</span>
+            } @else {
+              <span>Register</span>
+            }
+          </button>
+        </div>
+
+        @if (errorMessage()) {
+          <p class="register-note">{{ errorMessage() }}</p>
+        }
+      </div>
+    </mat-card>
+  </form>
+</section>
