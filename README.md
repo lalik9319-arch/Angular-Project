@@ -1,6 +1,3 @@
-# Task Manager - מערכת ניהול משימות
-
-פרויקט Angular לניהול משימות, פרוייקט לימודי/דוגמה שמכיל רכיבים לניהול פרויקטים, צוותים, ומשימות.
 # Task Manager
 
 Task Manager is an Angular example/learning project for managing projects, teams and tasks. It demonstrates common patterns for a small CRUD app: authentication, component-based UI, services for API communication, models, route guards, and HTTP interceptors.
@@ -68,8 +65,9 @@ Each component delegates business logic to services (e.g., `tasks.ts`, `projects
 - `projects` and `teams` services: manage projects and teams respectively.
 - `comments` service: post and retrieve comments for tasks.
 
-The frontend expects a REST API backend (not included). Typical environment variables:
-- `API_BASE_URL` — base URL for backend API.
+The frontend is configured to talk to a REST API backend at:
+
+- `https://wolftasksserver-j7bp.onrender.com/api` (configured via `environment.ts` / `environment.development.ts`)
 
 ## Project Structure (summary)
 - `src/app` — application source
